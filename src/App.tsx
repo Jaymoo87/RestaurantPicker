@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
+import { animated, useSpring } from "@react-spring/web";
 
 function App() {
+  const springs = useSpring({
+    from: { x: 0 },
+    to: { x: 100 },
+  });
+
   const [choice, setChoice] = useState("");
   const [restaurants, setRestaurants] = useState([
     { name: "La Hacienda", weight: 0.5 },
@@ -29,20 +35,29 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <button onClick={calculateRandomChoice}>
-        {!choice ? (
-          "Get a random Choice"
-        ) : (
-          <span>
-            <strong>{choice}</strong> Choose Again?
-          </span>
-        )}
+    <div>
+      <animated.h1
+        style={{
+          width: 600,
+          height: 200,
+          background: "#a01515",
+          borderRadius: 8,
+          alignContent: "center",
+          ...springs,
+        }}
+      >
+        {choice}
+      </animated.h1>
+      <button onClick={!choice ? calculateRandomChoice : (e) => setChoice("")}>
+        {!choice ? "Get a random Choice" : <span>Choose Again?</span>}
       </button>
+
       {restaurants.map((rs, i) => (
-        <div key={`restaurant-div-${i}`}>
-          <label>{rs.name}</label>
-          <input onChange={handleRange} name={rs.name} type="range" step={0.05} value={rs.weight} max={1} />
+        <div className="container">
+          <div key={`restaurant-div-${i}`}>
+            <label>{rs.name}</label>
+            - <input onChange={handleRange} name={rs.name} type="range" step={0.05} value={rs.weight} max={1} /> +
+          </div>
         </div>
       ))}
     </div>
