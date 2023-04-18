@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import "./App.css";
-import { HiOutlinePlusCircle } from "react-icons/hi";
 
 import { motion } from "framer-motion";
 
@@ -32,7 +31,7 @@ function App() {
   };
 
   return (
-    <div className="container text-center mt-5 mb-5">
+    <div className="container text-center">
       <h1 className="titlefont">What's For dinner?</h1>
       <div className="row justify-content-center">
         <motion.div>
