@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import './App.css';
 
 import { motion } from 'framer-motion';
 
 function App() {
   const weight: number = 0.5;
-  const [choice, setChoice] = useState('');
+
+  const [selectedMeat, setSelectedMeat] = useState('');
+  const [selectedVeg, setSelectedVeg] = useState('');
+
   const [meatChoice, setMeatChoice] = useState([
     { name: 'Chicken Wings', weight },
     { name: 'Chicken Breasts', weight },
@@ -64,57 +66,101 @@ function App() {
   const calculateRandomMeatChoice = () => {
     const meatChoices = meatChoice.map((rs) => new Array(Math.round(rs.weight * 20)).fill(rs.name)).flat();
     const randomMeatChoice = meatChoices[Math.floor(Math.random() * meatChoices.length)];
-    setMeatChoice(randomMeatChoice);
+    setSelectedMeat(randomMeatChoice);
   };
 
   const calculateRandomVegChoice = () => {
     const vegChoices = vegChoice.map((rs) => new Array(Math.round(rs.weight * 20)).fill(rs.name)).flat();
     const randomVegChoice = vegChoices[Math.floor(Math.random() * vegChoices.length)];
-    setVegChoice(randomVegChoice);
+    setSelectedVeg(randomVegChoice);
   };
 
   return (
-    <div className="container text-center">
+    <div className="container text-center bg-secondary ">
       <h1 className="titlefont">What's For dinner?</h1>
-      <div className="row justify-content-center justify-between">
-        <motion.div>
-          <motion.h1
-            layout
-            transition={{ type: 'spring', delay: 1 }}
-            drag
-            whileDrag={{ scale: 0.75 }}
-            dragMomentum={false}
-            className="titlefont m-5 justify-content-center"
-          >
-            {choice}
-          </motion.h1>
-        </motion.div>{' '}
-        {dinnerTonight.map((rs, i) => (
-          <div key={`restaurant-div-${i}`} className="flex flex-row col-7">
-            <label htmlFor="customRange1" className="form-label">
-              {rs.name}
-            </label>
 
-            <input
-              className=" form-range"
-              onChange={handleMeatRange}
-              name={rs.name}
-              type="range"
-              step={0.05}
-              value={rs.weight}
-              max={1}
-              id="customRange1"
-            />
-          </div>
-        ))}
+      <div className="row ">
+        <div className="col bg-info p-5 rounded m-5">
+          {meatChoice.map((rs, i) => (
+            <div key={`meat-${i}`} className="itemfont">
+              <label htmlFor="customRange1" className="form-label">
+                {rs.name}
+              </label>
+
+              <input
+                className=" form-range"
+                onChange={handleMeatRange}
+                name={rs.name}
+                type="range"
+                step={0.05}
+                value={rs.weight}
+                max={1}
+                id="customRange1"
+              />
+            </div>
+          ))}
+          <motion.div>
+            <motion.h1
+              layout
+              transition={{ type: 'spring', delay: 1 }}
+              drag
+              whileDrag={{ scale: 0.75 }}
+              dragMomentum={false}
+              className="titlefont m-5 "
+            >
+              {selectedMeat}
+            </motion.h1>
+          </motion.div>{' '}
+          <motion.button
+            onClick={!selectedMeat ? calculateRandomMeatChoice : (e) => setSelectedMeat('')}
+            whileTap={{ scale: 0.95 }}
+            className="m-5 btn btn-dark"
+          >
+            {!selectedMeat ? 'Get a random Meat' : <span>Choose Again?</span>}
+          </motion.button>
+        </div>
+
+        <div className="col bg-info p-5 rounded m-5">
+          {vegChoice.map((rs, i) => (
+            <div key={`restaurant-div-${i}`} className="itemfont">
+              <label htmlFor="customRange1" className="form-label">
+                {rs.name}
+              </label>
+
+              <input
+                className=" form-range"
+                onChange={handleVegRange}
+                name={rs.name}
+                type="range"
+                step={0.05}
+                value={rs.weight}
+                max={1}
+                id="customRange1"
+              />
+            </div>
+          ))}
+          <motion.div>
+            <motion.h1
+              layout
+              transition={{ type: 'spring', delay: 1 }}
+              drag
+              whileDrag={{ scale: 0.75 }}
+              dragMomentum={false}
+              className="titlefont m-5 justify-content-center"
+            >
+              {selectedVeg}
+            </motion.h1>
+          </motion.div>{' '}
+          <motion.button
+            onClick={!selectedVeg ? calculateRandomVegChoice : (e) => setSelectedVeg('')}
+            whileTap={{ scale: 0.95 }}
+            className="m-5 btn btn-dark"
+          >
+            {!selectedVeg ? 'Get a random Side' : <span>Choose Again?</span>}
+          </motion.button>
+        </div>
       </div>
-      <motion.button
-        onClick={!choice ? calculateRandomMeatChoice : (e) => setChoice('')}
-        whileTap={{ scale: 0.95 }}
-        className="m-5 btn btn-dark"
-      >
-        {!choice ? 'Get a random Choice' : <span>Choose Again?</span>}
-      </motion.button>
+      <div className="flex justify-between"></div>
     </div>
   );
 }
