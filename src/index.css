@@ -19,10 +19,12 @@
 
 .titlefont {
   font-family: 'Dancing Script', cursive;
+  color: #f6f8ff;
 }
 .itemfont {
   font-family: 'DM Sans', sans-serif;
   font-size: 1.2em;
+  color: #f6f8ff;
 }
 
 a {
@@ -58,4 +60,27 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: #23ce6b;
+  height: 1rem;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  margin-top: 0px;
+  height: 16px;
+  width: 50px;
+  background-color: #a846a0;
+}
+input[type='range']::-webkit-slider-thumb:hover {
+  background-color: #800275;
+}
+
+.containerbg {
+  background-color: #272d2d;
+}
+
+.tablebg {
+  background-color: #50514f;
 }

@@ -76,11 +76,11 @@ function App() {
   };
 
   return (
-    <div className="container text-center bg-secondary ">
+    <div className="container text-center containerbg">
       <h1 className="titlefont">What's For dinner?</h1>
 
       <div className="row ">
-        <div className="col bg-info p-5 rounded m-5">
+        <div className="col tablebg p-5 rounded m-5">
           {meatChoice.map((rs, i) => (
             <div key={`meat-${i}`} className="itemfont">
               <label htmlFor="customRange1" className="form-label">
@@ -120,7 +120,7 @@ function App() {
           </motion.button>
         </div>
 
-        <div className="col bg-info p-5 rounded m-5">
+        <div className="col tablebg p-5 rounded m-5">
           {vegChoice.map((rs, i) => (
             <div key={`restaurant-div-${i}`} className="itemfont">
               <label htmlFor="customRange1" className="form-label">
@@ -128,7 +128,7 @@ function App() {
               </label>
 
               <input
-                className=" form-range"
+                className=" form-range rounded p-2 text-warning"
                 onChange={handleVegRange}
                 name={rs.name}
                 type="range"
